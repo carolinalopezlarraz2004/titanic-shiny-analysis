@@ -17,7 +17,6 @@ The application includes:
 - Survival rate per group
 - Heatmap of survival counts
 - Interaction plot (Class × Sex)
-- Logistic regression model with predicted survival probabilities
 - Chi-square test and Cramér’s V to measure statistical association
 
 ---
