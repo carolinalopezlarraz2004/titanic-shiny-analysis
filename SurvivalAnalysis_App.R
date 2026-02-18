@@ -131,12 +131,8 @@ ui <- fluidPage(
                  h3("5. Does Class and Sex Interact in Survival?"),
                  plotOutput("interaction_plot"),
                  
-                 # 6. Logistic regression output
-                 h3("6. Model-Based Survival Probability (Logistic Regression)"),
-                 plotOutput("logistic_plot"),
-                 
-                 # 7. Statistical test results
-                 h3("7. Are These Differences Statistically Significant?"),
+                 # 6. Statistical test results
+                 h3("6. Are These Differences Statistically Significant?"),
                  verbatimTextOutput("stats_output")
         ),
         
@@ -301,42 +297,9 @@ server <- function(input, output) {
       labs(y = "Survival Rate")
   })
   
-  
+
   # ----------------------------------------------------------
-  # 4.6. Logistic regression model
-  # ----------------------------------------------------------
-  
-  # Reactive model so it updates automatically if needed
-  logistic_model <- reactive({
-    glm(Survived ~ Class + Sex + Age,
-        data = df_expanded,
-        family = binomial)
-  })
-  
-  output$logistic_plot <- renderPlot({
-    
-    model <- logistic_model()
-    
-    # Predict probability of survival
-    predicted_probs <- predict(model,
-                               type = "response")
-    
-    # Plot distribution of predicted probabilities
-    ggplot(data.frame(pred = predicted_probs),
-           aes(x = pred)) +
-      
-      geom_histogram(bins = 30,
-                     fill = "purple") +
-      
-      theme_minimal() +
-      
-      labs(x = "Predicted Survival Probability",
-           y = "Frequency")
-  })
-  
-  
-  # ----------------------------------------------------------
-  # 4.7. Statistical tests
+  # 4.6. Statistical tests
   # ----------------------------------------------------------
   
   output$stats_output <- renderPrint({
