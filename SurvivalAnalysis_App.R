@@ -32,9 +32,6 @@ library(dplyr)
 # This avoids the need to import external CSV files
 library(datasets)
 
-# vcd is useful for categorical data visualization
-# (even though mosaic plots are not used directly here)
-library(vcd)
 
 # reshape2 allows reshaping contingency tables
 # It is used to convert tables into data frames for plotting
@@ -147,7 +144,6 @@ ui <- fluidPage(
   )
 )
 
-
 # ----------------------------------------------------------
 # 4. Server Logic
 # ----------------------------------------------------------
@@ -248,7 +244,7 @@ server <- function(input, output) {
     tab <- table(df_expanded[[input$xvar]],
                  df_expanded$Survived)
     
-    # Convert table to dataframe for ggplot
+    # Convert table to dataframe for ggplot (transforms the table into long format, which is needed for ggplot)
     heat_data <- melt(tab)
     
     # Heatmap using tile geometry
@@ -322,7 +318,6 @@ server <- function(input, output) {
         round(cramer_v, 3), "\n")
   })
 }
-
 
 # ----------------------------------------------------------
 # 5. Run the application
